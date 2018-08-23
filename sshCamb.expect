@@ -1,0 +1,18 @@
+#!/usr/bin/expect
+
+#Usage sshUBNT.expect <host> <password> <sshport> <command to execute> <2nd command to execute>
+
+set timeout 5
+
+spawn ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null admin@[lindex $argv 0] -p "[lindex $argv 2]"
+sleep 2
+expect "*?assword" { 
+	send "[lindex $argv 1]\r"
+	expect ">" {
+	send "[lindex $argv 3]\r"}
+	expect ">" {
+	send "[lindex $argv 4]\r"}
+	expect ">" {
+	send "exit\r"}
+	exit
+}

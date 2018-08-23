@@ -1,0 +1,17 @@
+#!/usr/bin/expect -f
+
+#Usage scpAP.expect <host> <password> <sshport> <remote file path> <tag>
+
+#set timeout 5
+
+spawn scp -o KexAlgorithms=+diffie-hellman-group1-sha1 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P [lindex $argv 2] admin@[lindex $argv 0]:[lindex $argv 3] ./workspace
+expect "*?hosts.\r"
+send {""}
+expect "*?assword: " {
+send "[lindex $argv 1]\r"}
+expect "100%" {exit 1}
+wait 2
+expect "Permission denied" {exit}
+expect "Permission denied" {exit 1}
+timeout {exit 1}
+expect eof
