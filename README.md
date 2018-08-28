@@ -17,4 +17,4 @@ Steps for use.
   3) ./results/$DATE/shape.csv --> Here you see information related to radio level Traffic Shaping configured.  If this file does not populate then you have nothing configured and/or enabled.
   
  Afterwards
-  1) Discuss with co-workers as to why we should move away from Ubiquiti's radios, we should not have to write bash for a week straight in order to get some useful information.  Ubiquiti, please fix.
+  1) Discuss with co-workers as to why we should move away from Ubiquiti's radios, we should not have to write bash for a week straight in order to get some useful information.  UNMS and AirControl are horrible.  Ubiquiti, please fix.
