@@ -10,20 +10,18 @@ for PROGRAM in \
   cp      \
   id      \
   date    \
-  gawk    \
-  getent  \
   grep    \
-  ln      \
   mkdir   \
   mv      \
   rm      \
   sed     \
-  tee     \
   ssh     \
   expect  \
   timeout \
   tr      \
   curl    \
+  cut     \
+  
   
 do
 if ! hash "${PROGRAM}" 2>/dev/null ; then
@@ -282,8 +280,6 @@ longitude=$(grep longitude ./workspace/mca-status | sed 's/.*longitude=\(.*\)/\1
 distance=$(grep distance ./workspace/mca-status | awk -F "=" '{ print $2 }')
 nMode=$(grep wlanOpmode ./workspace/mca-status | sed 's/.*wlanOpmode=\(.*\)/\1/' | tr -d \,)
 countryCode=$(grep radio.countrycode ./workspace/running.cfg | awk -F "=" '{ print $2 }')
-
-$distance
 
 #if host is AP we want to get parent child data.
 if [[ $nMode == *'ap'* ]] ;then
@@ -763,8 +759,9 @@ rm ./output/* &> /dev/null
 
 #create output/error-log files with correct CSV header to output dir
 printf "ipAddress,manufacturer,macAddress,model,firmware,hostname,eSSID,latitude,longitude,countryCode,tShaping,httpPort,pass,mode,distanceMiles,port22,port10001,port2002," > ./output/radioData.csv
-printf "parent,parentHostName,parentModel,parentSSID,child,childIpAddress,childMACaddress,childType" > ./output/parentChild.csv
-printf "host,error" > ./output/error.csv
+printf "parent,parentHostName,parentModel,parentSSID,child,childIpAddress,childMACaddress,childType," > ./output/parentChild.csv
+printf "HostIP,hostName,eSSID,Interface,interfaceStatus,inStatus,ingressThrottle,inBurst,outStatus,egressThrottle,outBurst," > ./output/shape.csv
+printf "host,error," > ./output/error.csv
 
 #call main function once using preloaded IP addresses, we will call again after first run through is done.
 getList ""
@@ -774,11 +771,6 @@ cp ./list ./output/list
 
 #parse out IPs that failed expect scripts or were offline when we were looking at them last from the error.csv file.  Overwrite the list of hosts.
 cat ./output/error.temp | grep -e 'offline' -e 'expect' -e 'authen' | awk -F , '{ print $1 }' > ./list &> /dev/null
-
-#parse out IPs that "soft failed", eg they have no MAC addresses or anything else and append to ./list so we can have another go.  Also deletes incomplete lines
-####cat ./output/radioData.temp | awk -F',' '{if($3==""){print $1}}' >> ./list
-
-######
 
 #append additional parent/child, error and fwVersion to output files
 cat ./output/radioData.temp >> ./output/radioData.csv # &> /dev/null
