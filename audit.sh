@@ -24,6 +24,7 @@ for PROGRAM in \
   timeout \
   tr      \
   curl    \
+  
 do
   if ! hash "${PROGRAM}" 2>/dev/null
   then
