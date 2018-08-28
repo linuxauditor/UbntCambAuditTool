@@ -1,5 +1,39 @@
 #!/bin/bash
 
+#check to see if localhost has all programs installed and executable.
+
+export PATH="/usr/sbin:/sbin:/usr/bin:/bin"
+
+for PROGRAM in \
+  awk     \
+  cat     \
+  cp      \
+  id      \
+  date    \
+  gawk    \
+  getent  \
+  grep    \
+  ln      \
+  mkdir   \
+  mv      \
+  rm      \
+  sed     \
+  tee     \
+  ssh     \
+  expect  \
+  timeout \
+  tr      \
+  curl    \
+do
+  if ! hash "${PROGRAM}" 2>/dev/null
+  then
+    printf "[-] error: command not found in PATH: %s\n" "${PROGRAM}" >&2
+    exit 1
+  fi
+done
+
+#definition of functions
+
 getUbnt () {
 #Usage <host IP address>  <SSH port>  <http(s) port>
 
