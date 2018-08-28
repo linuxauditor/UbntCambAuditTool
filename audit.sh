@@ -26,11 +26,11 @@ for PROGRAM in \
   curl    \
   
 do
-  if ! hash "${PROGRAM}" 2>/dev/null
-  then
-    printf  "[-] error: command not found in PATH: %s\n" "${PROGRAM}" >&2
-    exit 1
-  fi
+if ! hash "${PROGRAM}" 2>/dev/null ; then
+	printf  "[-] error: command not found in PATH: %s\n" "${PROGRAM}" >&2
+	exit 1
+fi
+
 done
 
 
