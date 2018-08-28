@@ -4,7 +4,7 @@ tldr; quick and dirty shell script for auditing a WISP's hosts, works reliably f
 
 
 Steps for use.
-  1) Create directory somewhere onto your Linux filesystem, root or SU rights are usually not needed
+  1) Create directory somewhere onto your Linux filesystem, root or SU rights are usually not needed for executing the script.
   2) Download everything
   3) Add list of addresses into ./list
   4) Add plain text (yeah we all know this is a bad idea!) password(s) (yes some of us have multiple passwords that could be in use) into each "foo" string in script.  You might as well delete the other unused expect script attempts.
