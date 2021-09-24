@@ -1,5 +1,8 @@
 # UbntCambAuditTool
 
+
+Disclaimer :D  This was written by me when I was intern in 2017. I now know that there are better solutions for remotley managing many hosts. ie Ansible and even Rundeck. However, I was not aware of these at the time so a wild mess of expect scripts was the best option at the time.
+
 tldr; quick and dirty shell script for auditing a WISP's hosts, works reliably for Ubiquiti radios and somewhat reliably for Cambiums --> more functionality can be added with more time.  Will export as CSVs host specific information, parent child data, a CSV listing all radio level traffic shaping data and an error log that is hopelessly vauge.
 
 
